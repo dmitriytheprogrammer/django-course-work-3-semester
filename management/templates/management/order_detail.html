@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.is_staff %}
+<h1>Заказ: {{ order.title }}</h1>
+<p><strong>Товар:</strong> <a href="{{ order.get_absolute_url }}">{{ order.product }}</a></p>
+<p><strong>Клиент:</strong> {{ order.user }}</p>
+<p><strong>Количество:</strong> {{ order.quantity }}</p> 
+<p><strong>Дата заказа:</strong> {{ order.date }}</p> 
+<p><strong>Статус заказа:</strong> {{ order.status }}</p> 
+{% endif %}
+{% endblock %}

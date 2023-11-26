@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Товар: {{ product.title }}</h1>
+
+<p><strong>Название:</strong> <a href="{{ product.categoty.get_absolute_url }}">{{ product.name }}</a></p>
+<p><strong>Информация:</strong> {{ product.summary }}</p>
+<p><strong>Цена:</strong> {{ product.price }}$</p> 
+<p><strong>Количество:</strong> {{ product.quantity }}</p> 
+
+
+{% endblock %}
+

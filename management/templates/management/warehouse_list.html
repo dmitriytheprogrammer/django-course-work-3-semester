@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if user.is_staff %}
+    <h1>Список складов:</h1>
+    {% if warehouse_list %}
+        <ul>
+        {% for warehouse in warehouse_list %}
+            <li>
+                <a href="{{ warehouse.get_absolute_url }}">{{ warehouse.name }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет доступных складов.</p>
+    {% endif %}
+{% else %}
+    <p>У вас нет доступа к этой странице. Пожалуйста, войдите под учетной записью с правами доступа.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.is_staff %}
+<h1>Поставщик: {{ supplier.title }}</h1>
+<p><strong>Наименование организации:</strong> <a href="{{ supplier.get_absolute_url }}">{{ supplier.name }}</a></p>
+<p><strong>Контактное лицо:</strong> {{ supplier.contact }}</p>
+<p><strong>Адрес поставщика:</strong> {{ supplier.address }}</p> 
+<p><strong>Контактный телефон:</strong> {{ supplier.tel }}</p> 
+{% endif %}
+{% endblock %}

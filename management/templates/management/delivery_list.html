@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if user.is_staff %}
+    <h1>Список поставок:</h1>
+    {% if delivery_list %}
+        <ul>
+        {% for delivery in delivery_list %}
+            <li>
+                <a href="{{ delivery.get_absolute_url }}">
+                    {{ delivery.product }} - ({{ delivery.supplier }})
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет доступных поставок.</p>
+    {% endif %}
+{% else %}
+    <p>У вас нет доступа к этой странице. Пожалуйста, войдите под учетной записью с правами доступа.</p>
+{% endif %}
+{% endblock %}

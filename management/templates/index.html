@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Домашняя страница</h1>
+
+<h2>UML модель</h2>
+
+<div>
+{% load static %}
+<img src="{% static 'images/uml.png' %}" alt="UML" width="600px">
+</div>  
+
+
+<h2>Динамический контент</h2>
+
+<p>В библиотеке имеются следующие счетчики записей:</p>
+<ul>
+<ul>
+    <li><strong>Продукты:</strong> {{ num_products }}</li>
+    <li><strong>Категории:</strong> {{ num_categories }}</li>
+    <li><strong>Поставщики:</strong> {{ num_suppliers }}</li>
+    <li><strong>Заказы:</strong> {{ num_orders }}</li>
+    <li><strong>Поставки:</strong> {{ num_deliveries }}</li>
+    <li><strong>Склады:</strong> {{ num_warehouses }}</li>
+</ul>
+</ul>
+
+
+<p>Вы посетили эту страницу {{ num_visits }} раз.</p>
+
+{% endblock %}

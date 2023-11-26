@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if user.is_staff %}
+    <h1>Список заказов:</h1>
+    {% if order_list %}
+        <ul>
+        {% for order in order_list %}
+            <li>
+                <a href="{{ order.get_absolute_url }}">
+                    {{ order.product }} - ({{ order.user }}) - ({{ order.status }})
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет доступных заказов.</p>
+    {% endif %}
+{% else %}
+    <p>У вас нет доступа к этой странице. Пожалуйста, войдите под учетной записью с правами доступа.</p>
+{% endif %}
+{% endblock %}

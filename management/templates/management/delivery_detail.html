@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+{% block content %}
+{% if user.is_staff %}
+<h1>Поставка: {{ delivery.title }}</h1>
+<p><strong>Товар:</strong> <a href="{{ delivery.get_absolute_url }}">{{ delivery.name }}</a></p>
+<p><strong>Поставщик:</strong> {{ delivery.supplier }}</p>
+<p><strong>Количество:</strong> {{ delivery.quantity }}</p> 
+<p><strong>Дата поставки:</strong> {{ delivery.date }}</p> 
+{% endif %}
+{% endblock %}
