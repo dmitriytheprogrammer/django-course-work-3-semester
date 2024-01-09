@@ -19,17 +19,31 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
+    def validate_quantity(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Quantity should be a non-negative integer.")
+        return value
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
 
+    def validate_quantity(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Quantity should be a non-negative integer.")
+        return value
+
 
 class DeliverySerializer(serializers.ModelSerializer):
     class Meta:
         model = Delivery
         fields = '__all__'
+
+    def validate_quantity(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Quantity should be a non-negative integer.")
+        return value
 
 
 class SupplierSerializer(serializers.ModelSerializer):

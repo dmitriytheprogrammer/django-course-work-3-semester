@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'import_export',
     'simple_history',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

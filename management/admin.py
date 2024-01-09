@@ -1,10 +1,13 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.admin import widgets
+from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.html import format_html
-from import_export import resources
+from import_export import resources, fields
 from import_export.admin import ExportMixin
+from import_export.formats import base_formats
+from import_export.widgets import ForeignKeyWidget
 from simple_history.admin import SimpleHistoryAdmin
 
 from .models import Product, Category, Category_Product, Warehouse, Order, Delivery, Supplier, ProductWarehouse
@@ -26,9 +29,18 @@ class CategoryResource(resources.ModelResource):
 
 
 class OrderResource(resources.ModelResource):
-
+    user = fields.Field(
+        column_name='user',
+        attribute='user',
+        widget=ForeignKeyWidget(User, field='username'))
     class Meta:
         model = Order
+
+
+    def dehydrate_product(self, order):
+        rounded_price = round(order.product.price, 2)
+        return f"${rounded_price}"
+
 
 
 class DeliveryResource(resources.ModelResource):
@@ -93,6 +105,14 @@ class ProductAdmin(ExportMixin, AdminModel):
     get_warehouse_names.short_description = 'Warehouses'
 
 
+    def get_export_formats(self):
+        formats = (
+            base_formats.CSV,
+            base_formats.XLSX,
+        )
+        return [f for f in formats if f().can_export()]
+
+
 @admin.register(Order)
 class OrderAdmin(ExportMixin, AdminModel):
     list_display = ('id', 'product_link', 'user', 'quantity', 'date', 'status')
@@ -114,8 +134,11 @@ class OrderAdmin(ExportMixin, AdminModel):
         return format_html('<a href="{}">{}</a>', obj.product.get_absolute_url(), obj.product.name)
     product_link.short_description = 'Product'
 
-
     resource_class = OrderResource
+
+    def get_export_queryset(self, request):
+        return Order.objects.filter(status='DELIVERED')
+
 
 
 @admin.register(Delivery)
